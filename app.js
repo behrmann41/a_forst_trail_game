@@ -5,6 +5,7 @@
     energy: 100,
     steps: 0,
     berries: 0,
+    water: 0
   };
 //grab element with the id of status
   var status = document.getElementById("status");
@@ -62,8 +63,31 @@
         updateUserStatusDom();
         document.getElementById("buttons").removeChild(berryBtn);  
       }) // ends berry event listener
-    } // ends if statement
+    }// ends berry button if statement
+
+    if (userStatus.steps % 3 == 0) {
+      //create water button
+      var waterBtn = document.createElement('button');
+      waterBtn.id = "get-water";
+      waterBtn.innerHTML = "look for water";
+      document.getElementById("buttons").appendChild(waterBtn);
+      //functionality to water button
+      waterBtn.addEventListener('click', function() {
+        //randome event either 1 or 0
+        waterCount = Math.random() < 0.5 ? 0 : 1
+        userStatus.water += waterCount;
+        var waterTxt = document.createElement("div");
+        //add text based on result of water find
+        if (waterCount == 0) {
+          waterTxt.innerHTML = "you couldn't find any water";
+          document.getElementById("left").appendChild(waterTxt);
+        }else {
+          waterTxt.innerHTML = "you found water";
+          document.getElementById("left").appendChild(waterTxt);
+        }
+        document.getElementById("buttons").removeChild(waterBtn);
+        updateUserStatusDom();
+      });
+    }//ends water button if statement
   }) // ends walkbtn listener
-
 })();
-
