@@ -42,6 +42,8 @@
   //each time button is clicked increment steps
     function increase () {
       userStatus.steps++;
+      //decrease energy by random number of 1-10 per step
+      userStatus.energy -= Math.floor(Math.random() * 10) + 1;
     };
     increase();
     updateUserStatusDom();
@@ -65,7 +67,7 @@
       }) // ends berry event listener
     }// ends berry button if statement
 
-    if (userStatus.steps % 3 == 0) {
+    if (userStatus.steps % 20 == 0) {
       //create water button
       var waterBtn = document.createElement('button');
       waterBtn.id = "get-water";
