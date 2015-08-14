@@ -3,7 +3,8 @@
 (function() {
   var userStatus = {
     energy: 100,
-    steps: 0
+    steps: 0,
+    berries: 0,
   };
 //grab element with the id of status
   var status = document.getElementById("status");
@@ -23,15 +24,15 @@
   updateUserStatusDom();
 
   //button to walk down trail
-  var btn = document.getElementById("walk");
+  var walkBtn = document.getElementById("walk");
   //set variable for left side to input dialog
   
 //each time button is clicked, it is disabled for 3 secs
-  btn.addEventListener('click', function() {
+  walkBtn.addEventListener('click', function() {
     this.setAttribute("disabled", "true");
       setTimeout(function() {
-        btn.removeAttribute("disabled")
-      }, 3000)
+        walkBtn.removeAttribute("disabled")
+      }, 1000)
 
 //adds line of walking text to left div each time button is clicked
     var walkingText = document.createElement("div");
@@ -43,7 +44,26 @@
     };
     increase();
     updateUserStatusDom();
-  })
+    
+    if (userStatus.steps % 10 == 0) {
+      //create the berry button
+      var berryBtn = document.createElement('button');
+      berryBtn.id = "pick-berries";
+      berryBtn.innerHTML = "pick-berries";
+      document.getElementById("buttons").appendChild(berryBtn);
+      //add random between 1-10 number of berries
+      berryBtn.addEventListener('click', function() {
+        var berryCount = Math.floor(Math.random() * 10) + 1;
+        userStatus.berries += berryCount;
+      //add berry text
+        var berryTxt = document.createElement("div");
+        berryTxt.innerHTML = "you have collected " + berryCount + " berries"
+        document.getElementById("left").appendChild(berryTxt);
+        updateUserStatusDom();
+        document.getElementById("buttons").removeChild(berryBtn);  
+      }) // ends berry event listener
+    } // ends if statement
+  }) // ends walkbtn listener
 
 })();
 
