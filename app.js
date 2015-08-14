@@ -22,13 +22,28 @@
   };
   updateUserStatusDom();
 
-})();
-//button to walk down trail
-var btn = document.getElementById("walk");
+  //button to walk down trail
+  var btn = document.getElementById("walk");
+  //set variable for left side to input dialog
+  
 //each time button is clicked, it is disabled for 3 secs
-btn.addEventListener('click', function() {
-  this.setAttribute("disabled", "true");
-    setTimeout(function() {
+  btn.addEventListener('click', function() {
+    this.setAttribute("disabled", "true");
+      setTimeout(function() {
         btn.removeAttribute("disabled")
-    }, 3000)
-})
+      }, 3000)
+
+//adds line of walking text to left div each time button is clicked
+    var walkingText = document.createElement("div");
+    walkingText.innerHTML = "you continue down the trail";
+    document.getElementById("left").appendChild(walkingText);    
+  //each time button is clicked increment steps
+    function increase () {
+      userStatus.steps++;
+    };
+    increase();
+    updateUserStatusDom();
+  })
+
+})();
+
