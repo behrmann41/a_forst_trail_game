@@ -48,7 +48,7 @@
     increase();
     updateUserStatusDom();
     
-    if (userStatus.steps % 10 == 0) {
+    if (userStatus.steps % 2 == 0) {
       //create the berry button
       var berryBtn = document.createElement('button');
       berryBtn.id = "pick-berries";
@@ -63,7 +63,34 @@
         berryTxt.innerHTML = "you have collected " + berryCount + " berries"
         document.getElementById("left").appendChild(berryTxt);
         updateUserStatusDom();
-        document.getElementById("buttons").removeChild(berryBtn);  
+        document.getElementById("buttons").removeChild(berryBtn);
+        
+        //timer on eat berry button
+        
+        var refreshIntervalId = function() {
+          if (document.getElementById("eat-berries") === null){
+            if(userStatus.berries > 0){
+          //create berry button
+              var eatBerryBtn = document.createElement('button')
+              eatBerryBtn.id = "eat-berries";
+              eatBerryBtn.innerHTML = "eat berry";
+              document.getElementById("buttons").appendChild(eatBerryBtn);
+              //berry button functionalty
+              eatBerryBtn.addEventListener('click', function(){
+                userStatus.berries -= 1;
+                userStatus.energy += 2;
+                eatBerryTxt = document.createElement("div");
+                eatBerryTxt.innerHTML = "you ate berries and gained energy"
+                document.getElementById("left").appendChild(eatBerryTxt);
+                document.getElementById("buttons").removeChild(eatBerryBtn);
+                updateUserStatusDom(); 
+              }) 
+            }
+          }else{
+            clearInterval(refreshIntervalId);
+          }
+        }
+        setInterval(refreshIntervalId, 10000);   
       }) // ends berry event listener
     }// ends berry button if statement
 
