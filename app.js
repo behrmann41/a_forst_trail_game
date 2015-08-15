@@ -34,7 +34,6 @@
       setTimeout(function() {
         walkBtn.removeAttribute("disabled")
       }, 1000)
-
 //adds line of walking text to left div each time button is clicked
     var walkingText = document.createElement("div");
     walkingText.innerHTML = "you continue down the trail";
@@ -94,7 +93,7 @@
           }
           setInterval(eatBerryInterval, 10000);   
         })// ends berry event listener
-      }  // end verify water button 
+      }  // end verify berry button 
     }// ends berry button if statement
 
     if (userStatus.steps % 4 == 0) {
@@ -144,10 +143,21 @@
             }else{
               clearInterval(drinkWaterInterval);
             }
-          }
+          } //drink water interval end
           setInterval(drinkWaterInterval, 5000);
-        });
+        }); //water button event listener end
       } // verify look for water is not already present - end
     }//ends water button if statement
-  }) // ends walkbtn listener
+
+    if (userStatus.energy <= 0){
+    var endGameTxt = document.createElement("div");
+    endGameTxt.innerHTML = "you have died! zZZ(-_-)ZZz";
+    document.getElementById("left").appendChild(endGameTxt);
+    document.getElementById('buttons').removeChild(walkBtn);
+    document.getElementById("buttons").removeChild(waterBtn);
+    document.getElementById("buttons").removeChild(berryBtn);
+    document.getElementById('buttons').removeChild(eatBerryBtn);
+    document.getElementById('buttons').removeChild(drinkWaterBtn);
+    };
+  })// ends walkbtn listener
 })();
